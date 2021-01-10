@@ -1,0 +1,35 @@
+{
+    "name": "accc",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "accc",
+    "workspaceFolder": "/home/accc/src",
+    "shutdownAction": "none",
+    "settings": {
+        "python.formatting.provider": "black",
+        "python.languageServer": "Pylance",
+        "pythonTestExplorer.testFramework": "pytest",
+        "python.analysis.autoImportCompletions": true,
+        "python.analysis.typeCheckingMode": "basic",
+        // Paths
+        "python.formatting.blackPath": "${workspaceFolder}/.venv/bin/black",
+        "python.linting.flake8Path": "${workspaceFolder}/.venv/bin/flake8",
+        "python.pythonPath": "${workspaceFolder}/.venv/bin/python",
+        "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
+        "python.testing.pytestPath": "${workspaceFolder}/.venv/bin/pytest",
+        "python.testing.cwd": "${workspaceFolder}",
+    },
+    "extensions": [
+        "alefragnani.bookmarks",
+        "donjayamanne.githistory",
+        "eamodio.gitlens",
+        "gruntfuggly.todo-tree",
+        "littlefoxteam.vscode-python-test-adapter",
+        "mhutchie.git-graph",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "ryu1kn.partial-diff",
+        "streetsidesoftware.code-spell-checker",
+        "hbenl.vscode-test-explorer"
+    ]
+}

@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  accc:
+    build:
+      context: "."
+      dockerfile: Dockerfile
+      args:
+        - USER=accc
+    container_name: accc
+    user: accc
+    tty: true
+    volumes:
+      - ..:/home/accc/src:cached
