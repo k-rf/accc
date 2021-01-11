@@ -11,4 +11,5 @@ services:
     user: accc
     tty: true
     volumes:
+      - $HOME/.ssh:/home/accc/.ssh
       - ..:/home/accc/src:cached
