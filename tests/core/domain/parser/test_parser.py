@@ -12,10 +12,10 @@ class Test_文字列を解析するParserクラス:
         class Test_数値型を解析する:
             cases = [
                 ("X: int", {"args": "X", "type": "int"}),
-                ("x: int", {"args": "X", "type": "int"}),
                 ("X:int", {"args": "X", "type": "int"}),
                 ("X :int", {"args": "X", "type": "int"}),
                 ("X : int", {"args": "X", "type": "int"}),
+                ("x: int", {"args": "X", "type": "int"}),
             ]
 
             @pytest.mark.parametrize(
@@ -27,12 +27,30 @@ class Test_文字列を解析するParserクラス:
         class Test_数値型タプルを解析する:
             cases = [
                 ("X: int, Y: int", {"args": "X, Y", "type": "Tuple[int, int]"}),
+                ("X : int , Y:int", {"args": "X, Y", "type": "Tuple[int, int]"}),
+                ("X :int ,Y :int", {"args": "X, Y", "type": "Tuple[int, int]"}),
+                ("X:int,Y : int", {"args": "X, Y", "type": "Tuple[int, int]"}),
                 ("x: int, y: int", {"args": "X, Y", "type": "Tuple[int, int]"}),
                 ("X: int,", {"args": "X", "type": "Tuple[int]"}),
                 (
                     "X: int, Y: int, Z: int",
                     {"args": "X, Y, Z", "type": "Tuple[int, int, int]"},
                 ),
+            ]
+
+            @pytest.mark.parametrize(
+                ("args", "expected"), cases, ids=[f"{x[0]} >> {x[1]}" for x in cases]
+            )
+            def test_解析する(self, parser: Parser, args, expected):
+                assert parser.parse(args) == expected
+
+        class Test_数値型リストを解析する:
+            cases = [
+                ("X: List[int]", {"args": "X", "type": "List[int]"}),
+                ("x: List[ int ]", {"args": "X", "type": "List[int]"}),
+                ("X: List [int]", {"args": "X", "type": "List[int]"}),
+                ("X: List [  int ]", {"args": "X", "type": "List[int]"}),
+                ("X: list[int]", {"args": "X", "type": "List[int]"}),
             ]
 
             @pytest.mark.parametrize(
@@ -57,6 +75,23 @@ class Test_文字列を解析するParserクラス:
             cases = [
                 ("X: str, Y: str", {"args": "X, Y", "type": "Tuple[str, str]"}),
                 ("x: str, y: str", {"args": "X, Y", "type": "Tuple[str, str]"}),
+                ("X: str,", {"args": "X", "type": "Tuple[str]"}),
+                (
+                    "X: str, Y: str, Z: str",
+                    {"args": "X, Y, Z", "type": "Tuple[str, str, str]"},
+                ),
+            ]
+
+            @pytest.mark.parametrize(
+                ("args", "expected"), cases, ids=[f"{x[0]} >> {x[1]}" for x in cases]
+            )
+            def test_解析する(self, parser: Parser, args, expected):
+                assert parser.parse(args) == expected
+
+        class Test_文字列型リストを解析する:
+            cases = [
+                ("X: List[str]", {"args": "X", "type": "List[str]"}),
+                ("X: list[str]", {"args": "X", "type": "List[str]"}),
             ]
 
             @pytest.mark.parametrize(
