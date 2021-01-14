@@ -1,4 +1,5 @@
-from typing import Tuple
+from dataclasses import asdict
+
 import pytest
 from accc.core.domain.parser.parser import Parser
 
@@ -21,8 +22,8 @@ class Test_文字列を解析するParserクラス:
             @pytest.mark.parametrize(
                 ("args", "expected"), cases, ids=[f"{x[0]} >> {x[1]}" for x in cases]
             )
-            def test_解析する(self, parser: Parser, args, expected):
-                assert parser.parse(args) == expected
+            def test(self, parser: Parser, args, expected):
+                assert asdict(parser.parse(args)) == expected
 
         class Test_数値型タプルを解析する:
             cases = [
@@ -41,8 +42,8 @@ class Test_文字列を解析するParserクラス:
             @pytest.mark.parametrize(
                 ("args", "expected"), cases, ids=[f"{x[0]} >> {x[1]}" for x in cases]
             )
-            def test_解析する(self, parser: Parser, args, expected):
-                assert parser.parse(args) == expected
+            def test(self, parser: Parser, args, expected):
+                assert asdict(parser.parse(args)) == expected
 
         class Test_数値型リストを解析する:
             cases = [
@@ -56,8 +57,8 @@ class Test_文字列を解析するParserクラス:
             @pytest.mark.parametrize(
                 ("args", "expected"), cases, ids=[f"{x[0]} >> {x[1]}" for x in cases]
             )
-            def test_解析する(self, parser: Parser, args, expected):
-                assert parser.parse(args) == expected
+            def test(self, parser: Parser, args, expected):
+                assert asdict(parser.parse(args)) == expected
 
         class Test_文字列型を解析する:
             cases = [
@@ -68,8 +69,8 @@ class Test_文字列を解析するParserクラス:
             @pytest.mark.parametrize(
                 ("args", "expected"), cases, ids=[f"{x[0]} >> {x[1]}" for x in cases]
             )
-            def test_解析する(self, parser: Parser, args, expected):
-                assert parser.parse(args) == expected
+            def test(self, parser: Parser, args, expected):
+                assert asdict(parser.parse(args)) == expected
 
         class Test_文字列型タプルを解析する:
             cases = [
@@ -85,8 +86,8 @@ class Test_文字列を解析するParserクラス:
             @pytest.mark.parametrize(
                 ("args", "expected"), cases, ids=[f"{x[0]} >> {x[1]}" for x in cases]
             )
-            def test_解析する(self, parser: Parser, args, expected):
-                assert parser.parse(args) == expected
+            def test(self, parser: Parser, args, expected):
+                assert asdict(parser.parse(args)) == expected
 
         class Test_文字列型リストを解析する:
             cases = [
@@ -97,8 +98,34 @@ class Test_文字列を解析するParserクラス:
             @pytest.mark.parametrize(
                 ("args", "expected"), cases, ids=[f"{x[0]} >> {x[1]}" for x in cases]
             )
-            def test_解析する(self, parser: Parser, args, expected):
-                assert parser.parse(args) == expected
+            def test(self, parser: Parser, args, expected):
+                assert asdict(parser.parse(args)) == expected
+
+        class Test_タプル型リストを解析する:
+            cases = [
+                (
+                    "X: List[A: int, B: int]",
+                    {"args": "X", "type": "List[Tuple[int, int]]"},
+                ),
+                (
+                    "X: List [ A : int , B : int ]",
+                    {"args": "X", "type": "List[Tuple[int, int]]"},
+                ),
+                (
+                    "X: list[a: int, b: int]]",
+                    {"args": "X", "type": "List[Tuple[int, int]]"},
+                ),
+                (
+                    "X: list[a: int, b: int, c: int]]",
+                    {"args": "X", "type": "List[Tuple[int, int, int]]"},
+                ),
+            ]
+
+            @pytest.mark.parametrize(
+                ("args", "expected"), cases, ids=[f"{x[0]} >> {x[1]}" for x in cases]
+            )
+            def test(self, parser: Parser, args, expected):
+                assert asdict(parser.parse(args)) == expected
 
         class Test_異なる型のタプルを解析する:
             cases = [
@@ -109,6 +136,6 @@ class Test_文字列を解析するParserクラス:
             @pytest.mark.parametrize(
                 "args", cases, ids=[f"{x} >> raise ValueError" for x in cases]
             )
-            def test_解析する(self, parser: Parser, args):
+            def test(self, parser: Parser, args):
                 with pytest.raises(ValueError):
                     parser.parse(args)
