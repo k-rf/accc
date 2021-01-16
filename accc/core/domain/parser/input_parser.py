@@ -1,13 +1,7 @@
-from dataclasses import dataclass
+from .input_parser_response import InputParserResponse
 
 
-@dataclass
-class Response:
-    args: str
-    type: str
-
-
-class Parser:
+class InputParser:
     def __is_unsupported_type(self, value: str):
         return value not in ("int", "str")
 
@@ -37,7 +31,7 @@ class Parser:
         if self.__is_unsupported_type(_type):
             raise ValueError
 
-        return Response(_args.upper(), _type)
+        return InputParserResponse(_args.upper(), _type)
 
     def __tuple_type_parse(self, value: str):
         args: list[str] = []
@@ -55,7 +49,9 @@ class Parser:
         if len(set(types)) != 1:
             raise ValueError
 
-        return Response(", ".join(args), f"Tuple[{', '.join([x for x in types])}]")
+        return InputParserResponse(
+            ", ".join(args), f"Tuple[{', '.join([x for x in types])}]"
+        )
 
     def __list_type_parse(self, value: str):
         if self.__has_no_bracket(value):
@@ -66,7 +62,9 @@ class Parser:
         if self.__is_unsupported_type(self.__expose_inner_type(_type)):
             raise ValueError
 
-        return Response(_args.upper(), "".join(_type.split(" ")).capitalize())
+        return InputParserResponse(
+            _args.upper(), "".join(_type.split(" ")).capitalize()
+        )
 
     def __tuple_list_type_parse(self, value: str):
         _args, _type = self.__divide_into_arg_and_type(value)
@@ -77,13 +75,11 @@ class Parser:
         inner_type = self.__expose_inner_type(_type)
         tuple_type = self.__tuple_type_parse(inner_type).type
 
-        return Response(_args, f"List[{tuple_type}]")
+        return InputParserResponse(_args, f"List[{tuple_type}]")
 
-    def parse(self, value: str) -> Response:
+    def parse(self, value: str) -> InputParserResponse:
         is_list = "list" in value or "List" in value
         is_tuple = "," in value
-
-        print(value, "list", is_list, "tuple", is_tuple)
 
         if is_list and is_tuple:
             return self.__tuple_list_type_parse(value)

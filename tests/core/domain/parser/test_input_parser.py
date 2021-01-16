@@ -1,7 +1,7 @@
 from dataclasses import asdict
 
 import pytest
-from accc.core.domain.parser.parser import Parser
+from accc.core.domain.parser.input_parser import InputParser
 
 
 def ids(value: list[tuple[str, dict[str, str]]]):
@@ -12,11 +12,11 @@ def ids_raise_ValueError(value: list[str]):
     return (f"{x} >> raise ValueError" for x in value)
 
 
-class Test_文字列を解析するParserクラス:
+class Test_文字列を解析するInputParserクラス:
     class Test_parseメソッドは文字列を解析して辞書型に変換する:
         @pytest.fixture
         def parser(self):
-            return Parser()
+            return InputParser()
 
         class Test_数値型を解析する:
             cases = [
@@ -28,7 +28,7 @@ class Test_文字列を解析するParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: Parser, args, expected):
+            def test(self, parser: InputParser, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_数値型タプルを解析する:
@@ -46,7 +46,7 @@ class Test_文字列を解析するParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: Parser, args, expected):
+            def test(self, parser: InputParser, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_数値型リストを解析する:
@@ -59,7 +59,7 @@ class Test_文字列を解析するParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: Parser, args, expected):
+            def test(self, parser: InputParser, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_文字列型を解析する:
@@ -69,7 +69,7 @@ class Test_文字列を解析するParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: Parser, args, expected):
+            def test(self, parser: InputParser, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_文字列型タプルを解析する:
@@ -84,7 +84,7 @@ class Test_文字列を解析するParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: Parser, args, expected):
+            def test(self, parser: InputParser, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_文字列型リストを解析する:
@@ -94,7 +94,7 @@ class Test_文字列を解析するParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: Parser, args, expected):
+            def test(self, parser: InputParser, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_タプル型リストを解析する:
@@ -118,7 +118,7 @@ class Test_文字列を解析するParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: Parser, args, expected):
+            def test(self, parser: InputParser, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_異なる型のタプルを解析する:
@@ -128,7 +128,7 @@ class Test_文字列を解析するParserクラス:
             ]
 
             @pytest.mark.parametrize("args", cases, ids=ids_raise_ValueError(cases))
-            def test(self, parser: Parser, args):
+            def test(self, parser: InputParser, args):
                 with pytest.raises(ValueError):
                     parser.parse(args)
 
@@ -140,7 +140,7 @@ class Test_文字列を解析するParserクラス:
             ]
 
             @pytest.mark.parametrize("args", cases, ids=ids_raise_ValueError(cases))
-            def test(self, parser: Parser, args):
+            def test(self, parser: InputParser, args):
                 with pytest.raises(ValueError):
                     parser.parse(args)
 
@@ -157,6 +157,6 @@ class Test_文字列を解析するParserクラス:
             ]
 
             @pytest.mark.parametrize("args", cases, ids=ids_raise_ValueError(cases))
-            def test(self, parser: Parser, args):
+            def test(self, parser: InputParser, args):
                 with pytest.raises(ValueError):
                     print(parser.parse(args))
