@@ -8,63 +8,88 @@ class Response:
 
 
 class Parser:
+    def __is_unsupported_type(self, value: str):
+        return value not in ("int", "str")
+
+    def __has_no_bracket(self, value: str):
+        a = "[" in value
+        b = "]" in value
+        c = value.index("[") < value.index("]")
+
+        return not (a and b and c)
+
+    def __has_white_space(self, value: str):
+        return len(value.split(" ")) > 1
+
+    def __expose_inner_type(self, value: str):
+        return value.split("[")[1].split("]")[0].strip()
+
     def __divide_into_arg_and_type(self, value: str):
-        return tuple(x.strip() for x in value.split(":"))
+        splitted = [x.strip() for x in value.split(":")]
+        return tuple([splitted[0], ":".join(splitted[1:])])
 
     def __mono_type_parse(self, value: str):
-        divided = self.__divide_into_arg_and_type(value)
+        _args, _type = self.__divide_into_arg_and_type(value)
 
-        return Response(
-            divided[0].upper(),
-            divided[1],
-        )
+        if self.__has_white_space(_args):
+            raise ValueError
+
+        if self.__is_unsupported_type(_type):
+            raise ValueError
+
+        return Response(_args.upper(), _type)
 
     def __tuple_type_parse(self, value: str):
         args: list[str] = []
         types: list[str] = []
 
         for s in [v.strip() for v in value.split(",") if v]:
-            parsed = self.__divide_into_arg_and_type(s)
-            args.append(parsed[0].upper())
-            types.append(parsed[1])
+            _args, _type = self.__divide_into_arg_and_type(s)
+
+            if self.__is_unsupported_type(_type):
+                raise ValueError
+
+            args.append(_args.upper())
+            types.append(_type)
 
         if len(set(types)) != 1:
             raise ValueError
 
-        return Response(
-            ", ".join(args),
-            f"Tuple[{', '.join([x for x in types])}]",
-        )
+        return Response(", ".join(args), f"Tuple[{', '.join([x for x in types])}]")
 
     def __list_type_parse(self, value: str):
-        divided = self.__divide_into_arg_and_type(value)
+        if self.__has_no_bracket(value):
+            raise ValueError
 
-        return Response(
-            divided[0].upper(),
-            "".join(divided[1].split(" ")).capitalize(),
-        )
+        _args, _type = self.__divide_into_arg_and_type(value)
+
+        if self.__is_unsupported_type(self.__expose_inner_type(_type)):
+            raise ValueError
+
+        return Response(_args.upper(), "".join(_type.split(" ")).capitalize())
 
     def __tuple_list_type_parse(self, value: str):
-        divided = self.__divide_into_arg_and_type(value)
+        _args, _type = self.__divide_into_arg_and_type(value)
 
-        inner_type = ":".join(divided[1:]).split("[")[1].split("]")[0]
+        if self.__has_no_bracket(_type):
+            raise ValueError
+
+        inner_type = self.__expose_inner_type(_type)
         tuple_type = self.__tuple_type_parse(inner_type).type
 
-        return Response(
-            divided[0],
-            f"List[{tuple_type}]",
-        )
+        return Response(_args, f"List[{tuple_type}]")
 
     def parse(self, value: str) -> Response:
-        value = "".join(value.split(" "))
-        in_list = "list" in value or "List" in value
-        in_tuple = "," in value
+        is_list = "list" in value or "List" in value
+        is_tuple = "," in value
 
-        if in_list and in_tuple:
+        print(value, "list", is_list, "tuple", is_tuple)
+
+        if is_list and is_tuple:
             return self.__tuple_list_type_parse(value)
-        elif in_list:
+        elif is_list:
             return self.__list_type_parse(value)
-        elif in_tuple:
+        elif is_tuple:
             return self.__tuple_type_parse(value)
         else:
             return self.__mono_type_parse(value)
