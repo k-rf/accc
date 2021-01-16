@@ -12,12 +12,13 @@ def ids_raise_ValueError(value: list[str]):
     return (f"{x} >> raise ValueError" for x in value)
 
 
+@pytest.fixture
+def parser():
+    return InputParser()
+
+
 class Test_文字列を解析するInputParserクラス:
     class Test_parseメソッドは文字列を解析して辞書型に変換する:
-        @pytest.fixture
-        def parser(self):
-            return InputParser()
-
         class Test_数値型を解析する:
             cases = [
                 ("X: int", {"args": "X", "type": "int"}),
