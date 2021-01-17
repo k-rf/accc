@@ -7,10 +7,6 @@ def ids(value: list[tuple[InputParserResponse, str]]):
     return (f"{x[0]} >> {x[1]}" for x in value)
 
 
-def ids_raise_ValueError(value: list[str]):
-    return (f"{x} >> raise ValueError" for x in value)
-
-
 @pytest.fixture
 def converter():
     return InputConverter()
@@ -104,7 +100,7 @@ class Test_入力形式に変換するInputConverterクラス:
         class Test_タプル型リストの入力形式に変換する:
             cases = [
                 (
-                    InputParserResponse("X", "List[Tuple[int, int]"),
+                    InputParserResponse("X", "List[Tuple[int, int]]"),
                     "X = []\n"
                     "for line in stdin:\n"
                     "    X.append(tuple([int(x) for x in line.split()]))",
