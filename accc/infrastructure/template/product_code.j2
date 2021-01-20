@@ -1,0 +1,15 @@
+{% for impt in import_parts %}{{ impt }}
+{% endfor %}
+
+def algorithm({% for parameter in parameter_parts %}{{ parameter }}{% if not loop.last %}, {% endif %}{% endfor %}):
+    return -1
+
+
+def main():
+{% for inpt in input_parts %}    {{ inpt }}
+{% endfor %}
+    print(algorithm({% for argument in argument_parts %}{{ argument }}{% if not loop.last %}, {% endif %}{% endfor %}))
+
+
+if __name__ == "__main__":
+    main()
