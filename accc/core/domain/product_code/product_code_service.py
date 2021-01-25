@@ -1,7 +1,34 @@
-from .input_parser_response import InputParserResponse
+from typing import Union, overload
+
+from .parsed_data import ParsedData
 
 
-class InputParser:
+class ProductCodeService:
+    @overload
+    def parse(self, value: str) -> ParsedData:
+        ...
+    @overload
+    def parse(self, value: list[str]) -> list[ParsedData]:
+        ...
+
+    def parse(self, value: Union[str, list[str]]):
+        if isinstance(value, str):
+            is_list = "list" in value or "List" in value
+            is_tuple = "," in value
+
+            if is_list and is_tuple:
+                return self.__tuple_list_type_parse(value)
+            elif is_list:
+                return self.__list_type_parse(value)
+            elif is_tuple:
+                return self.__tuple_type_parse(value)
+            else:
+                return self.__mono_type_parse(value)
+        else:
+            return [self.parse(v) for v in value]
+
+    # ========================================================================
+
     def __is_unsupported_type(self, value: str):
         return value not in ("int", "str")
 
@@ -31,7 +58,7 @@ class InputParser:
         if self.__is_unsupported_type(_type):
             raise ValueError
 
-        return InputParserResponse(_args.upper(), _type)
+        return ParsedData(_args.upper(), _type)
 
     def __tuple_type_parse(self, value: str):
         args: list[str] = []
@@ -49,9 +76,7 @@ class InputParser:
         if len(set(types)) != 1:
             raise ValueError
 
-        return InputParserResponse(
-            ", ".join(args), f"Tuple[{', '.join([x for x in types])}]"
-        )
+        return ParsedData(", ".join(args), f"Tuple[{', '.join([x for x in types])}]")
 
     def __list_type_parse(self, value: str):
         if self.__has_no_bracket(value):
@@ -62,9 +87,7 @@ class InputParser:
         if self.__is_unsupported_type(self.__expose_inner_type(_type)):
             raise ValueError
 
-        return InputParserResponse(
-            _args.upper(), "".join(_type.split(" ")).capitalize()
-        )
+        return ParsedData(_args.upper(), "".join(_type.split(" ")).capitalize())
 
     def __tuple_list_type_parse(self, value: str):
         _args, _type = self.__divide_into_arg_and_type(value)
@@ -75,17 +98,4 @@ class InputParser:
         inner_type = self.__expose_inner_type(_type)
         tuple_type = self.__tuple_type_parse(inner_type).type
 
-        return InputParserResponse(_args, f"List[{tuple_type}]")
-
-    def parse(self, value: str) -> InputParserResponse:
-        is_list = "list" in value or "List" in value
-        is_tuple = "," in value
-
-        if is_list and is_tuple:
-            return self.__tuple_list_type_parse(value)
-        elif is_list:
-            return self.__list_type_parse(value)
-        elif is_tuple:
-            return self.__tuple_type_parse(value)
-        else:
-            return self.__mono_type_parse(value)
+        return ParsedData(_args, f"List[{tuple_type}]")
