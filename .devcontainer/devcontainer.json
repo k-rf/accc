@@ -23,6 +23,8 @@
         "donjayamanne.githistory",
         "eamodio.gitlens",
         "gruntfuggly.todo-tree",
+        "hbenl.vscode-test-explorer",
+        "hediet.vscode-drawio",
         "littlefoxteam.vscode-python-test-adapter",
         "mhutchie.git-graph",
         "ms-python.python",
@@ -30,6 +32,6 @@
         "ms-toolsai.jupyter",
         "ryu1kn.partial-diff",
         "streetsidesoftware.code-spell-checker",
-        "hbenl.vscode-test-explorer"
+        "wholroyd.jinja",
     ]
 }
