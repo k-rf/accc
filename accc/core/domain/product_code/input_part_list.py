@@ -1,6 +1,7 @@
-from accc.core.domain.product_code.parsed_data import ParsedData
-from accc.core.domain.product_code.input_part import InputPart
 from dataclasses import InitVar, dataclass, field
+
+from accc.core.domain.product_code.input_part import InputPart
+from accc.core.domain.product_code.parsed_data import ParsedData
 
 
 @dataclass
