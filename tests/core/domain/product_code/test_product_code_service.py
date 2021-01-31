@@ -1,7 +1,7 @@
 from dataclasses import asdict
 
 import pytest
-from accc.core.domain.parser.input_parser import InputParser
+from accc.core.domain.product_code.product_code_service import ProductCodeService
 
 
 def ids(value: list[tuple[str, dict[str, str]]]):
@@ -14,11 +14,11 @@ def ids_raise_ValueError(value: list[str]):
 
 @pytest.fixture
 def parser():
-    return InputParser()
+    return ProductCodeService()
 
 
-class Test_文字列を解析するInputParserクラス:
-    class Test_parseメソッドは文字列を解析して辞書型に変換する:
+class Test_文字列を解析するProductCodeServiceクラス:
+    class Test_parseメソッドは文字列を解析してParsedData型に変換する:
         class Test_数値型を解析する:
             cases = [
                 ("X: int", {"args": "X", "type": "int"}),
@@ -29,7 +29,7 @@ class Test_文字列を解析するInputParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: InputParser, args, expected):
+            def test(self, parser: ProductCodeService, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_数値型タプルを解析する:
@@ -47,7 +47,7 @@ class Test_文字列を解析するInputParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: InputParser, args, expected):
+            def test(self, parser: ProductCodeService, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_数値型リストを解析する:
@@ -60,7 +60,7 @@ class Test_文字列を解析するInputParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: InputParser, args, expected):
+            def test(self, parser: ProductCodeService, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_文字列型を解析する:
@@ -70,7 +70,7 @@ class Test_文字列を解析するInputParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: InputParser, args, expected):
+            def test(self, parser: ProductCodeService, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_文字列型タプルを解析する:
@@ -85,7 +85,7 @@ class Test_文字列を解析するInputParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: InputParser, args, expected):
+            def test(self, parser: ProductCodeService, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_文字列型リストを解析する:
@@ -95,7 +95,7 @@ class Test_文字列を解析するInputParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: InputParser, args, expected):
+            def test(self, parser: ProductCodeService, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_タプル型リストを解析する:
@@ -119,7 +119,7 @@ class Test_文字列を解析するInputParserクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, parser: InputParser, args, expected):
+            def test(self, parser: ProductCodeService, args, expected):
                 assert asdict(parser.parse(args)) == expected
 
         class Test_異なる型のタプルを解析する:
@@ -129,7 +129,7 @@ class Test_文字列を解析するInputParserクラス:
             ]
 
             @pytest.mark.parametrize("args", cases, ids=ids_raise_ValueError(cases))
-            def test(self, parser: InputParser, args):
+            def test(self, parser: ProductCodeService, args):
                 with pytest.raises(ValueError):
                     parser.parse(args)
 
@@ -141,7 +141,7 @@ class Test_文字列を解析するInputParserクラス:
             ]
 
             @pytest.mark.parametrize("args", cases, ids=ids_raise_ValueError(cases))
-            def test(self, parser: InputParser, args):
+            def test(self, parser: ProductCodeService, args):
                 with pytest.raises(ValueError):
                     parser.parse(args)
 
@@ -158,6 +158,6 @@ class Test_文字列を解析するInputParserクラス:
             ]
 
             @pytest.mark.parametrize("args", cases, ids=ids_raise_ValueError(cases))
-            def test(self, parser: InputParser, args):
+            def test(self, parser: ProductCodeService, args):
                 with pytest.raises(ValueError):
                     print(parser.parse(args))

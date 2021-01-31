@@ -1,112 +1,107 @@
 import pytest
-from accc.core.domain.converter.input_converter import InputConverter
-from accc.core.domain.parser.input_parser_response import InputParserResponse
+from accc.core.domain.product_code.input_part import InputPart
+from accc.core.domain.product_code.parsed_data import ParsedData
 
 
-def ids(value: list[tuple[InputParserResponse, str]]):
+def ids(value: list[tuple[ParsedData, str]]):
     return (f"{x[0]} >> {x[1]}" for x in value)
 
 
-@pytest.fixture
-def converter():
-    return InputConverter()
-
-
-class Test_入力形式に変換するInputConverterクラス:
-    class Test_convertメソッドはInputParserResponseを入力形式に変換する:
+class Test_プロダクトコードの入力部分を扱うInputPartクラス:
+    class Test_初期化時に入力形式に変換する:
         class Test_数値型の入力形式に変換する:
             cases = [
-                (InputParserResponse("X", "int"), "X = int(input())"),
-                (InputParserResponse("Y", "int"), "Y = int(input())"),
+                (ParsedData("X", "int"), "X = int(input())"),
+                (ParsedData("Y", "int"), "Y = int(input())"),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, converter: InputConverter, args, expected):
-                assert converter.convert(args) == expected
+            def test(self, args, expected):
+                assert str(InputPart(args)) == expected
 
         class Test_数値型タプルの入力形式に変換する:
             cases = [
                 (
-                    InputParserResponse("X, Y", "Tuple[int, int]"),
+                    ParsedData("X, Y", "Tuple[int, int]"),
                     "X, Y = [int(x) for x in input().split()]",
                 ),
                 (
-                    InputParserResponse("X, Y, Z", "Tuple[int, int, int]"),
+                    ParsedData("X, Y, Z", "Tuple[int, int, int]"),
                     "X, Y, Z = [int(x) for x in input().split()]",
                 ),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, converter: InputConverter, args, expected):
-                assert converter.convert(args) == expected
+            def test(self, args, expected):
+                assert str(InputPart(args)) == expected
 
         class Test_数値型リストの入力形式に変換する:
             cases = [
                 (
-                    InputParserResponse("X", "List[int]"),
+                    ParsedData("X", "List[int]"),
                     "X = [int(x) for x in input().split()]",
                 ),
                 (
-                    InputParserResponse("Y", "List[int]"),
+                    ParsedData("Y", "List[int]"),
                     "Y = [int(x) for x in input().split()]",
                 ),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, converter: InputConverter, args, expected):
-                assert converter.convert(args) == expected
+            def test(self, args, expected):
+                assert str(InputPart(args)) == expected
 
         class Test_文字列型の入力形式に変換する:
             cases = [
-                (InputParserResponse("X", "str"), "X = input()"),
+                (ParsedData("X", "str"), "X = input()"),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, converter: InputConverter, args, expected):
-                assert converter.convert(args) == expected
+            def test(self, args, expected):
+                assert str(InputPart(args)) == expected
 
         class Test_文字列型タプルの入力形式に変換する:
             cases = [
                 (
-                    InputParserResponse("X, Y", "Tuple[str, str]"),
+                    ParsedData("X, Y", "Tuple[str, str]"),
                     "X, Y = [x for x in input().split()]",
                 ),
                 (
-                    InputParserResponse("X, Y, Z", "Tuple[str, str, str]"),
+                    ParsedData("X, Y, Z", "Tuple[str, str, str]"),
                     "X, Y, Z = [x for x in input().split()]",
                 ),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, converter: InputConverter, args, expected):
-                assert converter.convert(args) == expected
+            def test(self, args, expected):
+                assert str(InputPart(args)) == expected
 
         class Test_文字列型リストの入力形式に変換する:
             cases = [
                 (
-                    InputParserResponse("X", "List[str]"),
+                    ParsedData("X", "List[str]"),
                     "X = [x for x in input().split()]",
                 ),
                 (
-                    InputParserResponse("Y", "List[str]"),
+                    ParsedData("Y", "List[str]"),
                     "Y = [x for x in input().split()]",
                 ),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, converter: InputConverter, args, expected):
-                assert converter.convert(args) == expected
+            def test(self, args, expected):
+                assert str(InputPart(args)) == expected
 
         class Test_タプル型リストの入力形式に変換する:
             cases = [
                 (
-                    InputParserResponse("X", "List[Tuple[int, int]]"),
+                    ParsedData("X", "List[Tuple[int, int]]"),
                     "X = []\n"
                     "for line in stdin:\n"
                     "    X.append(tuple([int(x) for x in line.split()]))",
                 ),
                 (
-                    InputParserResponse("Y", "List[Tuple[str, str]]"),
+                    ParsedData("Y", "List[Tuple[str, str]]"),
                     "Y = []\n"
                     "for line in stdin:\n"
                     "    Y.append(tuple([x for x in line.split()]))",
@@ -114,5 +109,5 @@ class Test_入力形式に変換するInputConverterクラス:
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
-            def test(self, converter: InputConverter, args, expected):
-                assert converter.convert(args) == expected
+            def test(self, args, expected):
+                assert str(InputPart(args)) == expected

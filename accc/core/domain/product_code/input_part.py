@@ -1,8 +1,20 @@
-from accc.core.domain.parser.input_parser_response import InputParserResponse
+from accc.core.domain.product_code.parsed_data import ParsedData
+from dataclasses import InitVar, dataclass, field
 
 
-class InputConverter:
-    def convert(self, value: InputParserResponse):
+@dataclass
+class InputPart:
+    value: str = field(init=False)
+    parsed_data: InitVar[ParsedData]
+
+    def __post_init__(self, parsed_data: ParsedData):
+        self.value = self.__convert(parsed_data)
+
+    def __str__(self):
+        return self.value
+
+    @staticmethod
+    def __convert(value: ParsedData):
         is_tuple = "Tuple" in value.type
         is_list = "List" in value.type
         is_str = "str" in value.type
@@ -39,3 +51,5 @@ class InputConverter:
 
         if is_str:
             return f"{value.args} = input()"
+
+        raise ValueError(f'"{value.type}" is not supported.')

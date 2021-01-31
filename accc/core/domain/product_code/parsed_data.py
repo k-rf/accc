@@ -2,6 +2,6 @@ from dataclasses import dataclass
 
 
 @dataclass
-class InputParserResponse:
+class ParsedData:
     args: str
     type: str
