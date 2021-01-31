@@ -7,9 +7,9 @@ def ids(value: list[tuple[ParsedData, str]]):
     return (f"{x[0]} >> {x[1]}" for x in value)
 
 
-class Test_引数形式に変換するArgumentConverterクラス:
-    class Test_convertメソッドはInputParserResponseを引数形式に変換する:
-        class Test_数値型の引数形式に変換する:
+class Test_仮引数形式に変換するArgumentConverterクラス:
+    class Test_初期化時に仮引数形式に変換する:
+        class Test_数値型の仮引数形式に変換する:
             cases = [
                 (ParsedData("X", "int"), "X: int"),
             ]
@@ -18,7 +18,7 @@ class Test_引数形式に変換するArgumentConverterクラス:
             def test(self, args, expected):
                 assert str(ParameterPart(args)) == expected
 
-        class Test_数値型タプルの引数形式に変換する:
+        class Test_数値型タプルの仮引数形式に変換する:
             cases = [
                 (ParsedData("X, Y", "Tuple[int, int]"), "X: int, Y: int"),
             ]
@@ -27,7 +27,7 @@ class Test_引数形式に変換するArgumentConverterクラス:
             def test(self, args, expected):
                 assert str(ParameterPart(args)) == expected
 
-        class Test_数値型リストの引数形式に変換する:
+        class Test_数値型リストの仮引数形式に変換する:
             cases = [
                 (ParsedData("X", "List[int]"), "X: List[int]"),
             ]
@@ -36,7 +36,7 @@ class Test_引数形式に変換するArgumentConverterクラス:
             def test(self, args, expected):
                 assert str(ParameterPart(args)) == expected
 
-        class Test_文字列型の引数形式に変換する:
+        class Test_文字列型の仮引数形式に変換する:
             cases = [
                 (ParsedData("X", "str"), "X: str"),
             ]
@@ -45,7 +45,7 @@ class Test_引数形式に変換するArgumentConverterクラス:
             def test(self, args, expected):
                 assert str(ParameterPart(args)) == expected
 
-        class Test_文字列型タプルの引数形式に変換する:
+        class Test_文字列型タプルの仮引数形式に変換する:
             cases = [
                 (ParsedData("X, Y", "Tuple[str, str]"), "X: str, Y: str"),
             ]
@@ -54,7 +54,7 @@ class Test_引数形式に変換するArgumentConverterクラス:
             def test(self, args, expected):
                 assert str(ParameterPart(args)) == expected
 
-        class Test_文字列型リストの引数形式に変換する:
+        class Test_文字列型リストの仮引数形式に変換する:
             cases = [
                 (ParsedData("X", "List[str]"), "X: List[str]"),
             ]
@@ -63,7 +63,7 @@ class Test_引数形式に変換するArgumentConverterクラス:
             def test(self, args, expected):
                 assert str(ParameterPart(args)) == expected
 
-        class Test_タプル型リストの引数形式に変換する:
+        class Test_タプル型リストの仮引数形式に変換する:
             cases = [
                 (ParsedData("X", "List[Tuple[int, int]]"), "X: List[Tuple[int, int]]"),
                 (ParsedData("X", "List[Tuple[str, str]]"), "X: List[Tuple[str, str]]"),

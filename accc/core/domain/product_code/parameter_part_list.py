@@ -14,7 +14,7 @@ class ParameterPartList:
         >>> N: int
         >>> A: int, B: int
         >>> X: list[int]
-        >>> Y: list[tuple[int, int, int]]
+        >>> Y: list[A: int, B: int, C: int]
         >>>
         N: int
         A: int, B: int

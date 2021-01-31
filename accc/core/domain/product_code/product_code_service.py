@@ -93,7 +93,7 @@ class ProductCodeService:
         _args, _type = self.__divide_into_arg_and_type(value)
 
         if self.__has_no_bracket(_type):
-            raise ValueError
+            raise ValueError(f"{value} has no bracket.")
 
         inner_type = self.__expose_inner_type(_type)
         tuple_type = self.__tuple_type_parse(inner_type).type
