@@ -1,4 +1,5 @@
 from abc import ABC, abstractclassmethod
+from pathlib import Path
 
 from accc.core.usecase.product_code.product_code_output_data import (
     ProductCodeOutputData,
@@ -7,5 +8,5 @@ from accc.core.usecase.product_code.product_code_output_data import (
 
 class ProductCodePresenter(ABC):
     @abstractclassmethod
-    def output(self, value: ProductCodeOutputData):
+    def output(self, output_data: ProductCodeOutputData):
         ...

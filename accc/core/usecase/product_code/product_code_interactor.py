@@ -20,7 +20,7 @@ class ProductCodeInteractor(ProductCodeUsecase):
         code = ProductCode(FileName(input_data.file_name), parsed_data)
 
         data = ProductCodeOutputData(
-            file_name=str(code.file_name),
+            file_name=code.file_name.with_ext,
             import_parts=[str(x) for x in code.import_parts],
             parameter_parts=[str(x) for x in code.parameter_parts],
             input_parts=[str(x) for x in code.input_parts],

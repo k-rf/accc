@@ -14,3 +14,7 @@ class FileName:
 
     def __str__(self):
         return self.value
+
+    @property
+    def with_ext(self):
+        return ".".join((self.value, "py"))
