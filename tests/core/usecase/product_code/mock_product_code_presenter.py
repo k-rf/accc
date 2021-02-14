@@ -17,4 +17,4 @@ class MockProductCodePresenter(ProductCodePresenter):
             inputs = "\n".join(value.input_parts)
             parameters = "\n".join(value.parameter_parts)
 
-            f.writelines([arguments, "\n", imports, "\n", inputs, "\n", parameters])
+            f.writelines("\n".join([arguments, imports, inputs, parameters]))
