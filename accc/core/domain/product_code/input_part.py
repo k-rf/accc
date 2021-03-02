@@ -21,17 +21,21 @@ class InputPart:
         is_int = "int" in value.type
 
         if is_tuple and is_list and is_int:
-            return (
-                f"{value.args} = []\n"
-                f"for line in stdin:\n"
-                f"    {value.args}.append(tuple([int(x) for x in line.split()]))"
+            return "\n    ".join(
+                [
+                    f"{value.args} = []",
+                    f"for line in stdin:",
+                    f"    {value.args}.append(tuple([int(x) for x in line.split()]))",
+                ]
             )
 
         if is_tuple and is_list and is_str:
-            return (
-                f"{value.args} = []\n"
-                f"for line in stdin:\n"
-                f"    {value.args}.append(tuple([x for x in line.split()]))"
+            return "\n    ".join(
+                [
+                    f"{value.args} = []",
+                    f"for line in stdin:",
+                    f"    {value.args}.append(tuple([x for x in line.split()]))",
+                ]
             )
 
         if is_tuple and is_int:
