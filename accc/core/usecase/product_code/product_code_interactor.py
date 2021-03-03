@@ -7,9 +7,11 @@ from accc.core.usecase.product_code.product_code_output_data import (
 )
 from accc.core.usecase.product_code.product_code_presenter import ProductCodePresenter
 from accc.core.usecase.product_code.product_code_usecase import ProductCodeUsecase
+from injector import inject
 
 
 class ProductCodeInteractor(ProductCodeUsecase):
+    @inject
     def __init__(self, presenter: ProductCodePresenter):
         self.__service = ProductCodeService()
         self.__presenter = presenter

@@ -96,14 +96,14 @@ class Test_プロダクトコードの入力部分を扱うInputPartクラス:
             cases = [
                 (
                     ParsedData("X", "List[Tuple[int, int]]"),
-                    "X = []\n"
-                    "for line in stdin:\n"
+                    "X = []\n    "
+                    "for line in stdin:\n    "
                     "    X.append(tuple([int(x) for x in line.split()]))",
                 ),
                 (
                     ParsedData("Y", "List[Tuple[str, str]]"),
-                    "Y = []\n"
-                    "for line in stdin:\n"
+                    "Y = []\n    "
+                    "for line in stdin:\n    "
                     "    Y.append(tuple([x for x in line.split()]))",
                 ),
             ]

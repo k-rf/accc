@@ -53,10 +53,10 @@ class ProductCodeService:
         _args, _type = self.__divide_into_arg_and_type(value)
 
         if self.__has_white_space(_args):
-            raise ValueError
+            raise ValueError(f"`{_args}` has white space.")
 
         if self.__is_unsupported_type(_type):
-            raise ValueError
+            raise ValueError(f"`{_type}` is unsupported.")
 
         return ParsedData(_args.upper(), _type)
 
@@ -68,7 +68,7 @@ class ProductCodeService:
             _args, _type = self.__divide_into_arg_and_type(s)
 
             if self.__is_unsupported_type(_type):
-                raise ValueError
+                raise ValueError(f"`{_type}` is unsupported.")
 
             args.append(_args.upper())
             types.append(_type)
@@ -80,12 +80,12 @@ class ProductCodeService:
 
     def __list_type_parse(self, value: str):
         if self.__has_no_bracket(value):
-            raise ValueError
+            raise ValueError(f"`{value}` has no bracket.")
 
         _args, _type = self.__divide_into_arg_and_type(value)
 
         if self.__is_unsupported_type(self.__expose_inner_type(_type)):
-            raise ValueError
+            raise ValueError(f"`{_type}` is unsupported.")
 
         return ParsedData(_args.upper(), "".join(_type.split(" ")).capitalize())
 
@@ -93,7 +93,7 @@ class ProductCodeService:
         _args, _type = self.__divide_into_arg_and_type(value)
 
         if self.__has_no_bracket(_type):
-            raise ValueError(f"{value} has no bracket.")
+            raise ValueError(f"`{value}` has no bracket.")
 
         inner_type = self.__expose_inner_type(_type)
         tuple_type = self.__tuple_type_parse(inner_type).type
