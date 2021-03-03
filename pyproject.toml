@@ -9,6 +9,7 @@ license = "MIT"
 python = "^3.9"
 typer = "^0.3.2"
 Jinja2 = "^2.11.2"
+injector = "^0.18.4"
 
 [tool.poetry.dev-dependencies]
 pytest-cov = "^2.10.1"
@@ -17,6 +18,9 @@ black = "^20.8b1"
 tox = "^3.21.0"
 flake8 = "^3.8.4"
 pep8-naming = "^0.11.1"
+
+[tool.poetry.scripts]
+accc = "accc.__main__:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
