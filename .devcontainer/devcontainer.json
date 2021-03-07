@@ -17,6 +17,9 @@
         "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
         "python.testing.pytestPath": "${workspaceFolder}/.venv/bin/pytest",
         "python.testing.cwd": "${workspaceFolder}",
+        "python.testing.pytestArgs": [
+            "--ignore=${workspaceFolder}/accc/core"
+        ]
     },
     "extensions": [
         "alefragnani.bookmarks",
