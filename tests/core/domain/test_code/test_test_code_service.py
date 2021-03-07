@@ -17,7 +17,7 @@ class Test_テストコード用の文字列を解析するTestCodeServiceクラ
                 "4 5 6",
                 "7 8 9",
             ]
-            expected = ParsedData("\n".join(args) + "\n\n45\n")
+            expected = ParsedData(args, "45")
 
             assert parser.parse((args, "45")) == expected
 
@@ -29,8 +29,8 @@ class Test_テストコード用の文字列を解析するTestCodeServiceクラ
                 "7 8 9",
             ]
             expected = [
-                ParsedData("\n".join(args) + "\n\n45\n"),
-                ParsedData("\n".join(args) + "\n\n362880\n"),
+                ParsedData(args, "45"),
+                ParsedData(args, "362880"),
             ]
 
             assert parser.parse([(args, "45"), (args, "362880")]) == expected

@@ -3,4 +3,5 @@ from dataclasses import dataclass
 
 @dataclass
 class ParsedData:
-    readable: str
+    args: list[str]
+    expected: str

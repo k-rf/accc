@@ -13,6 +13,6 @@ class TestCodeService:
 
     def parse(self, value: Union[tuple[list[str], str], list[tuple[list[str], str]]]):
         if isinstance(value, tuple):
-            return ParsedData("\n".join(value[0]) + f"\n\n{value[1]}\n")
+            return ParsedData(value[0], value[1])
         else:
             return [self.parse(v) for v in value]
