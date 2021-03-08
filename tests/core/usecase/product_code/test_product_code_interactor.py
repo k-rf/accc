@@ -12,7 +12,7 @@ class Test_プロダクトコード用のインタラクタクラス:
             presenter = MockProductCodePresenter(tmp_path)
             interactor = ProductCodeInteractor(presenter)
 
-            file_name = "test_file"
+            file_name = "product_code_file"
             output_file_name = file_name + ".py"
             input_data = ProductCodeInputData(file_name, ["N: int, M: int", "X: str"])
             interactor.create(input_data)
@@ -32,7 +32,7 @@ class Test_プロダクトコード用のインタラクタクラス:
             presenter = ProductCodePresenter(tmp_path)
             interactor = ProductCodeInteractor(presenter)
 
-            file_name = "test_file"
+            file_name = "product_code_file"
             output_file_name = file_name + ".py"
             input_data = ProductCodeInputData(file_name, ["N: int, M: int", "X: str"])
             interactor.create(input_data)
