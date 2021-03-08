@@ -5,3 +5,4 @@ from dataclasses import dataclass
 class TestCodeOutputData:
     file_name: str
     readables: list[str]
+    expectations: list[str]

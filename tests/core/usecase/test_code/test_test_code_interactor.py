@@ -10,10 +10,12 @@ class Test_テストコード用のインタラクタクラス:
             presenter = MockTestCodePresenter(tmp_path)
             interactor = TestCodeInteractor(presenter)
 
-            file_name = "test_code_file"
+            file_name = "test_code"
+            product_code_name = "produce_code"
             output_file_name = file_name + ".py"
             input_data = TestCodeInputData(
                 file_name,
+                product_code_name,
                 [
                     (["2", "1 2 3", "4 5 6"], "21"),
                     (["3", "1 2 3", "4 5 6", "7 8 9"], "45"),
@@ -23,5 +25,5 @@ class Test_テストコード用のインタラクタクラス:
 
             with open(tmp_path / output_file_name, "r") as f:
                 assert f.read() == "".join(
-                    ["2\n1 2 3\n4 5 6\n\n21\n", "3\n1 2 3\n4 5 6\n7 8 9\n\n45\n"]
+                    ["2\n1 2 3\n4 5 6\n\n21", "3\n1 2 3\n4 5 6\n7 8 9\n\n45"]
                 )

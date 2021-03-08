@@ -17,10 +17,16 @@ class TestCodeInteractor(TestCodeUsecase):
     def create(self, input_data: TestCodeInputData):
         parsed_data = self.__service.parse(input_data.raw_data)
 
-        code = TestCode(FileName(input_data.file_name), parsed_data)
+        code = TestCode(
+            FileName(input_data.test_code_name),
+            FileName(input_data.product_code_name),
+            parsed_data,
+        )
 
         data = TestCodeOutputData(
-            code.file_name.with_ext, [str(x) for x in code.readables]
+            code.file_name.with_ext,
+            [str(x) for x in code.readables],
+            [str(x) for x in code.expectations],
         )
 
         self.__presenter.output(data)

@@ -9,4 +9,5 @@ class MockTestCodePresenter(TestCodePresenter):
 
     def output(self, output_data: TestCodeOutputData):
         with open(self.path / output_data.file_name, "w") as f:
-            f.writelines(output_data.readables)
+            for data in zip(output_data.readables, output_data.expectations):
+                f.writelines("".join(data))

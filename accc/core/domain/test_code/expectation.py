@@ -4,7 +4,7 @@ from accc.core.domain.test_code.parsed_data import ParsedData
 
 
 @dataclass
-class Readable:
+class Expectation:
     value: str = field(init=False)
     parsed_data: InitVar[ParsedData]
 
@@ -16,4 +16,4 @@ class Readable:
 
     @staticmethod
     def __convert(value: ParsedData):
-        return "\n".join(value.args) + "\n\n"
+        return value.expectation
