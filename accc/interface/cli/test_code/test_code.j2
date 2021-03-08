@@ -1,0 +1,16 @@
+import typer
+from  typer.testing import CliRunner
+
+from {{ parent_dir }}.{{ product_code_name }} import main
+
+
+app = typer.Typer()
+app.command()(main)
+runner = CliRunner()
+
+{% for readable, expectation in data %}
+def test_{{ loop.index }}():
+    result = runner.invoke(app, [], "{{ readable }}")
+    assert result.stdout == "{{ expectation }}"
+
+{% endfor %}

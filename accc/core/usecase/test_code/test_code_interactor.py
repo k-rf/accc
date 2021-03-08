@@ -25,6 +25,7 @@ class TestCodeInteractor(TestCodeUsecase):
 
         data = TestCodeOutputData(
             code.file_name.with_ext,
+            str(code.product_code_name),
             [str(x) for x in code.readables],
             [str(x) for x in code.expectations],
         )

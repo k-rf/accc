@@ -16,4 +16,4 @@ class Readable:
 
     @staticmethod
     def __convert(value: ParsedData):
-        return "\n".join(value.args) + "\n\n"
+        return "\\n".join(value.args) + "\\n\\n"

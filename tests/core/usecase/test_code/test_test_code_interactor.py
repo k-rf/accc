@@ -25,5 +25,5 @@ class Test_テストコード用のインタラクタクラス:
 
             with open(tmp_path / output_file_name, "r") as f:
                 assert f.read() == "".join(
-                    ["2\n1 2 3\n4 5 6\n\n21", "3\n1 2 3\n4 5 6\n7 8 9\n\n45"]
+                    ["2\\n1 2 3\\n4 5 6\\n\\n21", "3\\n1 2 3\\n4 5 6\\n7 8 9\\n\\n45"]
                 )
