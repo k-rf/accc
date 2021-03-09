@@ -8,10 +8,17 @@ from accc.core.usecase.product_code.product_code_presenter import (
     ProductCodePresenter as IProductCodePresenter,
 )
 from accc.core.usecase.product_code.product_code_usecase import ProductCodeUsecase
+from accc.core.usecase.test_code.test_code_interactor import TestCodeInteractor
+from accc.core.usecase.test_code.test_code_presenter import (
+    TestCodePresenter as ITestCodePresenter,
+)
+from accc.core.usecase.test_code.test_code_usecase import TestCodeUsecase
 from accc.interface.cli.product_code.product_code_controller import (
     ProductCodeController,
 )
 from accc.interface.cli.product_code.product_code_presenter import ProductCodePresenter
+from accc.interface.cli.test_code.test_code_controller import TestCodeController
+from accc.interface.cli.test_code.test_code_presenter import TestCodePresenter
 
 
 def configure(binder: Binder):
@@ -19,14 +26,19 @@ def configure(binder: Binder):
 
     # usecase
     binder.bind(interface=ProductCodeUsecase, to=ProductCodeInteractor)
+    binder.bind(interface=TestCodeUsecase, to=TestCodeInteractor)
     binder.bind(ProductCodeInteractor)
+    binder.bind(TestCodeInteractor)
 
     # presenter
     binder.bind(interface=IProductCodePresenter, to=ProductCodePresenter)
+    binder.bind(interface=ITestCodePresenter, to=TestCodePresenter)
     binder.bind(ProductCodePresenter, to=cwd)
+    binder.bind(TestCodePresenter, to=cwd)
 
     # controller
     binder.bind(ProductCodeController)
+    binder.bind(TestCodeController)
 
 
 injector = Injector(modules=[configure])
@@ -51,25 +63,43 @@ def check_file_existence(s: str):
 def command_gateway(file_name: str):
     product_file, test_file = check_file_existence(file_name)
 
+    print("For product")
+
     product_raw_data: list[str] = []
-    while (s := input(">>> ")) != "":
+    prompt = ">>> \n"
+    while (s := input(prompt)) != "":
         product_raw_data.append(s)
+        prompt = ""
+
+    print("For test")
+
+    test_raw_data: list[tuple[list[str], str]] = []
+    loop = True
+    while loop:
+        loop = False
+
+        row: list[str] = []
+        prompt = ">>> \n"
+        while (s := input(prompt)) != "":
+            loop = True
+            row.append(s)
+            prompt = ""
+
+        if loop:
+            expected = input("Expected Value: ")
+            test_raw_data.append((row, expected))
+
+    print(test_raw_data)
 
     try:
         injector.get(ProductCodeController).create_product_code(
             file_name, product_raw_data
         )
         typer.echo(f"{success}: `{product_file}` is created.")
-    except Exception as e:
-        typer.echo(f"{failure}: {e}", err=True)
-        raise typer.Exit(1)
 
-    test_raw_data: list[str] = []
-    while (s := input(">>> ")) != "":
-        test_raw_data.append(s)
-
-    try:
-        # TODO: テストコード生成処理
+        injector.get(TestCodeController).create_test_code(
+            test_file, product_file, test_raw_data
+        )
         typer.echo(f"{success}: `{test_file}` is created.")
     except Exception as e:
         typer.echo(f"{failure}: {e}", err=True)

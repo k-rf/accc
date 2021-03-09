@@ -24,14 +24,14 @@ class ParameterPart:
         is_tuple = "Tuple" in value.type
 
         if is_list and is_tuple:
-            return f"{value.args}: {value.type}"
+            return f"{value.args.lower()}: {value.type}"
 
         if is_tuple:
             inner = ParameterPart.__expose_inner_type(value.type)
 
             args: list[str] = []
             for a, t in zip(value.args.split(", "), inner.split(", ")):
-                args.append(f"{a}: {t}")
+                args.append(f"{a.lower()}: {t}")
             return ", ".join(args)
 
-        return f"{value.args}: {value.type}"
+        return f"{value.args.lower()}: {value.type}"

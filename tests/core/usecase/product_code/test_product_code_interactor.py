@@ -12,7 +12,7 @@ class Test_プロダクトコード用のインタラクタクラス:
             presenter = MockProductCodePresenter(tmp_path)
             interactor = ProductCodeInteractor(presenter)
 
-            file_name = "test_file"
+            file_name = "product_code_file"
             output_file_name = file_name + ".py"
             input_data = ProductCodeInputData(file_name, ["N: int, M: int", "X: str"])
             interactor.create(input_data)
@@ -24,22 +24,22 @@ class Test_プロダクトコード用のインタラクタクラス:
                     "\n",
                     "N, M = [int(x) for x in input().split()]\n",
                     "X = input()\n",
-                    "N: int, M: int\n",
-                    "X: str",
+                    "n: int, m: int\n",
+                    "x: str",
                 ]
 
         def test_解析可能な文字列を受け取る(self, tmp_path):
             presenter = ProductCodePresenter(tmp_path)
             interactor = ProductCodeInteractor(presenter)
 
-            file_name = "test_file"
+            file_name = "product_code_file"
             output_file_name = file_name + ".py"
             input_data = ProductCodeInputData(file_name, ["N: int, M: int", "X: str"])
             interactor.create(input_data)
 
             with open(tmp_path / output_file_name, "r") as f:
                 assert f.readlines() == [
-                    "def algorithm(N: int, M: int, X: str):\n",
+                    "def algorithm(n: int, m: int, x: str):\n",
                     "    return -1\n",
                     "\n",
                     "\n",
