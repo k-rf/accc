@@ -52,7 +52,6 @@ def check_file_existence(s: str):
     if not s.endswith(".py"):
         s += ".py"
 
-    # FIXME: このパスの取得方法のせいで非常にテストしづらい
     if Path(Path.cwd() / s).is_file():
         typer.echo(f"{failure}: `{s}` is existed.", err=True)
         raise typer.Exit(1)

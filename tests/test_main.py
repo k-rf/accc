@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from accc.__main__ import app
@@ -7,7 +8,8 @@ runner = CliRunner()
 
 
 class Test_メインコンポーネント:
-    def xtest_コマンド(self, tmp_path):
+    def test_コマンド(self, tmpdir):
+        os.chdir(tmpdir)
         result = runner.invoke(
             app,
             ["a"],
@@ -19,12 +21,12 @@ class Test_メインコンポーネント:
                     "\n",
                     # test code
                     "3\n1 2 3\n4 5 6\n7 8 9\n",
-                    "\n"
+                    "\n",
                     "45\n",
-                    "\n"
+                    "\n",
                 ]
             ),
         )
-        # assert result.exit_code == 0
-        assert Path(tmp_path / "a.py").is_file()
-        assert Path(tmp_path / "test_a.py").is_file()
+        assert result.exit_code == 0
+        assert Path(tmpdir / "a.py").is_file()
+        assert Path(tmpdir / "test_a.py").is_file()
