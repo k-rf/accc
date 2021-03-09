@@ -18,13 +18,14 @@
         "python.testing.pytestPath": "${workspaceFolder}/.venv/bin/pytest",
         "python.testing.cwd": "${workspaceFolder}",
         "python.testing.pytestArgs": [
-            "--ignore=${workspaceFolder}/accc/core"
+            "--ignore=${workspaceFolder}/accc"
         ]
     },
     "extensions": [
         "alefragnani.bookmarks",
         "donjayamanne.githistory",
         "eamodio.gitlens",
+        "fabiospampinato.vscode-projects-plus-todo-plus",
         "gruntfuggly.todo-tree",
         "hbenl.vscode-test-explorer",
         "hediet.vscode-drawio",
