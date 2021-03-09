@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "accc"
-version = "0.1.0"
+version = "1.0.0"
 description = "AtCoder Code Creation"
 authors = ["Kawano Kenichi <bppk28@gmail.com>"]
 license = "MIT"
