@@ -11,6 +11,6 @@ runner = CliRunner()
 {% for readable, expectation in data %}
 def test_{{ loop.index }}():
     result = runner.invoke(app, [], "{{ readable }}")
-    assert result.stdout == "{{ expectation }}"
+    assert result.stdout == "{{ expectation }}\n"
 
 {% endfor %}

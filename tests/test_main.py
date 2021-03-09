@@ -29,4 +29,4 @@ class Test_メインコンポーネント:
         )
         assert result.exit_code == 0
         assert Path(tmpdir / "a.py").is_file()
-        assert Path(tmpdir / "test_a.py").is_file()
+        assert Path(tmpdir / f"test_{str(tmpdir).split('/')[-1]}_a.py").is_file()

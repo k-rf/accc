@@ -57,7 +57,7 @@ def check_file_existence(s: str):
         typer.echo(f"{failure}: `{s}` is existed.", err=True)
         raise typer.Exit(1)
 
-    return s, "test_" + s
+    return s, f"test_{str(Path.cwd()).split('/')[-1]}_{s}"
 
 
 @app.command()
