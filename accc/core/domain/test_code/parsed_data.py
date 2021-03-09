@@ -1,7 +1,8 @@
 from dataclasses import dataclass
+from typing import List
 
 
 @dataclass
 class ParsedData:
-    args: list[str]
+    args: List[str]
     expectation: str

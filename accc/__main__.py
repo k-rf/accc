@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import List, Tuple
 
 import typer
 from injector import Binder, Injector
@@ -65,7 +66,7 @@ def command_gateway(file_name: str):
 
     print("For product")
 
-    product_raw_data: list[str] = []
+    product_raw_data: List[str] = []
     prompt = ">>> \n"
     while (s := input(prompt)) != "":
         product_raw_data.append(s)
@@ -73,12 +74,12 @@ def command_gateway(file_name: str):
 
     print("For test")
 
-    test_raw_data: list[tuple[list[str], str]] = []
+    test_raw_data: List[Tuple[List[str], str]] = []
     loop = True
     while loop:
         loop = False
 
-        row: list[str] = []
+        row: List[str] = []
         prompt = ">>> \n"
         while (s := input(prompt)) != "":
             loop = True

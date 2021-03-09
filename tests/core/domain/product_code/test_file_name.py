@@ -1,8 +1,9 @@
+from typing import List, Tuple
 import pytest
 from accc.core.domain.product_code.file_name import FileName
 
 
-def ids(value: list[tuple[str, str]]):
+def ids(value: List[Tuple[str, str]]):
     return (f"{x[0]} >> {x[1]}" for x in value)
 
 

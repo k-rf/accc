@@ -1,14 +1,15 @@
 from dataclasses import asdict
+from typing import List, Tuple
 
 import pytest
 from accc.core.domain.product_code.product_code_service import ProductCodeService
 
 
-def ids(value: list[tuple[str, dict[str, str]]]):
+def ids(value: List[Tuple[str, dict[str, str]]]):
     return (f"{x[0]} >> {x[1]}" for x in value)
 
 
-def ids_raise_ValueError(value: list[str]):
+def ids_raise_ValueError(value: List[str]):
     return (f"{x} >> raise ValueError" for x in value)
 
 
@@ -56,7 +57,7 @@ class Test_文字列を解析するProductCodeServiceクラス:
                 ("x: List[ int ]", {"args": "X", "type": "List[int]"}),
                 ("X: List [int]", {"args": "X", "type": "List[int]"}),
                 ("X: List [  int ]", {"args": "X", "type": "List[int]"}),
-                ("X: list[int]", {"args": "X", "type": "List[int]"}),
+                ("X: List[int]", {"args": "X", "type": "List[int]"}),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
@@ -91,7 +92,7 @@ class Test_文字列を解析するProductCodeServiceクラス:
         class Test_文字列型リストを解析する:
             cases = [
                 ("X: List[str]", {"args": "X", "type": "List[str]"}),
-                ("X: list[str]", {"args": "X", "type": "List[str]"}),
+                ("X: List[str]", {"args": "X", "type": "List[str]"}),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
@@ -109,11 +110,11 @@ class Test_文字列を解析するProductCodeServiceクラス:
                     {"args": "X", "type": "List[Tuple[int, int]]"},
                 ),
                 (
-                    "X: list[a: int, b: int]]",
+                    "X: List[a: int, b: int]]",
                     {"args": "X", "type": "List[Tuple[int, int]]"},
                 ),
                 (
-                    "X: list[a: int, b: int, c: int]]",
+                    "X: List[a: int, b: int, c: int]]",
                     {"args": "X", "type": "List[Tuple[int, int, int]]"},
                 ),
             ]

@@ -1,4 +1,5 @@
 from dataclasses import InitVar, dataclass, field
+from typing import List
 
 from accc.core.domain.product_code.parsed_data import ParsedData
 
@@ -29,7 +30,7 @@ class ParameterPart:
         if is_tuple:
             inner = ParameterPart.__expose_inner_type(value.type)
 
-            args: list[str] = []
+            args: List[str] = []
             for a, t in zip(value.args.split(", "), inner.split(", ")):
                 args.append(f"{a.lower()}: {t}")
             return ", ".join(args)

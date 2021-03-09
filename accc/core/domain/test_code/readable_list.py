@@ -1,4 +1,5 @@
 from dataclasses import InitVar, dataclass, field
+from typing import List
 
 from accc.core.domain.test_code.parsed_data import ParsedData
 from accc.core.domain.test_code.readable import Readable
@@ -6,10 +7,10 @@ from accc.core.domain.test_code.readable import Readable
 
 @dataclass
 class ReadableList:
-    value: list[Readable] = field(default_factory=list, init=False)
-    parsed_data: InitVar[list[ParsedData]]
+    value: List[Readable] = field(default_factory=list, init=False)
+    parsed_data: InitVar[List[ParsedData]]
 
-    def __post_init__(self, parsed_data: list[ParsedData]):
+    def __post_init__(self, parsed_data: List[ParsedData]):
         """
         >>>
         2

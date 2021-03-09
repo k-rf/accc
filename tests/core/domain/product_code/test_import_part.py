@@ -1,9 +1,10 @@
+from typing import List, Tuple
 import pytest
 from accc.core.domain.product_code.import_part import ImportPart
 from accc.core.domain.product_code.parsed_data import ParsedData
 
 
-def ids(value: list[tuple[ParsedData, str]]):
+def ids(value: List[Tuple[ParsedData, str]]):
     return (f"{x[0]} >> {x[1]}" for x in value)
 
 

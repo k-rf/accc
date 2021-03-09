@@ -1,4 +1,4 @@
-from typing import Union, overload
+from typing import List, Union, overload
 
 from .parsed_data import ParsedData
 
@@ -8,10 +8,10 @@ class ProductCodeService:
     def parse(self, value: str) -> ParsedData:
         ...
     @overload
-    def parse(self, value: list[str]) -> list[ParsedData]:
+    def parse(self, value: List[str]) -> List[ParsedData]:
         ...
 
-    def parse(self, value: Union[str, list[str]]):
+    def parse(self, value: Union[str, List[str]]):
         if isinstance(value, str):
             is_list = "list" in value or "List" in value
             is_tuple = "," in value
@@ -61,8 +61,8 @@ class ProductCodeService:
         return ParsedData(_args.upper(), _type)
 
     def __tuple_type_parse(self, value: str):
-        args: list[str] = []
-        types: list[str] = []
+        args: List[str] = []
+        types: List[str] = []
 
         for s in [v.strip() for v in value.split(",") if v]:
             _args, _type = self.__divide_into_arg_and_type(s)

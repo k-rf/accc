@@ -17,7 +17,7 @@ class Test_メインコンポーネント:
                 [
                     # product code
                     "n: int\n",
-                    "x: list[a: int, b: int, c: int]\n",
+                    "x: List[a: int, b: int, c: int]\n",
                     "\n",
                     # test code
                     "3\n1 2 3\n4 5 6\n7 8 9\n",

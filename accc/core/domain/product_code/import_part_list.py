@@ -1,4 +1,5 @@
 from dataclasses import InitVar, dataclass, field
+from typing import List
 
 from accc.core.domain.product_code.import_part import ImportPart
 from accc.core.domain.product_code.parsed_data import ParsedData
@@ -6,15 +7,15 @@ from accc.core.domain.product_code.parsed_data import ParsedData
 
 @dataclass
 class ImportPartList:
-    value: list[ImportPart] = field(default_factory=list, init=False)
-    parsed_data: InitVar[list[ParsedData]]
+    value: List[ImportPart] = field(default_factory=list, init=False)
+    parsed_data: InitVar[List[ParsedData]]
 
-    def __post_init__(self, parsed_data: list[ParsedData]):
+    def __post_init__(self, parsed_data: List[ParsedData]):
         """
         >>> N: int
         >>> A: int, B: int
-        >>> X: list[int]
-        >>> Y: list[A: int, B: int, C: int]
+        >>> X: List[int]
+        >>> Y: List[A: int, B: int, C: int]
         >>>
         None
         None

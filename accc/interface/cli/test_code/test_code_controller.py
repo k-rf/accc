@@ -1,3 +1,4 @@
+from typing import List, Tuple
 from accc.core.usecase.test_code.test_code_input_data import TestCodeInputData
 from accc.core.usecase.test_code.test_code_usecase import TestCodeUsecase
 from injector import inject
@@ -12,7 +13,7 @@ class TestCodeController:
         self,
         test_code_name: str,
         product_code_name: str,
-        raw_data: list[tuple[list[str], str]],
+        raw_data: List[Tuple[List[str], str]],
     ):
         input_data = TestCodeInputData(
             test_code_name,
