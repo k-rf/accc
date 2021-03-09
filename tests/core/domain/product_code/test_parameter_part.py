@@ -11,7 +11,7 @@ class Test_仮引数形式に変換するArgumentConverterクラス:
     class Test_初期化時に仮引数形式に変換する:
         class Test_数値型の仮引数形式に変換する:
             cases = [
-                (ParsedData("X", "int"), "X: int"),
+                (ParsedData("X", "int"), "x: int"),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
@@ -20,7 +20,7 @@ class Test_仮引数形式に変換するArgumentConverterクラス:
 
         class Test_数値型タプルの仮引数形式に変換する:
             cases = [
-                (ParsedData("X, Y", "Tuple[int, int]"), "X: int, Y: int"),
+                (ParsedData("X, Y", "Tuple[int, int]"), "x: int, y: int"),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
@@ -29,7 +29,7 @@ class Test_仮引数形式に変換するArgumentConverterクラス:
 
         class Test_数値型リストの仮引数形式に変換する:
             cases = [
-                (ParsedData("X", "List[int]"), "X: List[int]"),
+                (ParsedData("X", "List[int]"), "x: List[int]"),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
@@ -38,7 +38,7 @@ class Test_仮引数形式に変換するArgumentConverterクラス:
 
         class Test_文字列型の仮引数形式に変換する:
             cases = [
-                (ParsedData("X", "str"), "X: str"),
+                (ParsedData("X", "str"), "x: str"),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
@@ -47,7 +47,7 @@ class Test_仮引数形式に変換するArgumentConverterクラス:
 
         class Test_文字列型タプルの仮引数形式に変換する:
             cases = [
-                (ParsedData("X, Y", "Tuple[str, str]"), "X: str, Y: str"),
+                (ParsedData("X, Y", "Tuple[str, str]"), "x: str, y: str"),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
@@ -56,7 +56,7 @@ class Test_仮引数形式に変換するArgumentConverterクラス:
 
         class Test_文字列型リストの仮引数形式に変換する:
             cases = [
-                (ParsedData("X", "List[str]"), "X: List[str]"),
+                (ParsedData("X", "List[str]"), "x: List[str]"),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
@@ -65,8 +65,8 @@ class Test_仮引数形式に変換するArgumentConverterクラス:
 
         class Test_タプル型リストの仮引数形式に変換する:
             cases = [
-                (ParsedData("X", "List[Tuple[int, int]]"), "X: List[Tuple[int, int]]"),
-                (ParsedData("X", "List[Tuple[str, str]]"), "X: List[Tuple[str, str]]"),
+                (ParsedData("X", "List[Tuple[int, int]]"), "x: List[Tuple[int, int]]"),
+                (ParsedData("X", "List[Tuple[str, str]]"), "x: List[Tuple[str, str]]"),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
