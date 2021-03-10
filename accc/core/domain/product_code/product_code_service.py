@@ -102,5 +102,5 @@ class ProductCodeService:
         return ParsedData(
             _args.upper(),
             f"List[Tuple[{', '.join([x.strip() for x in inner_type.split(',')])}]]",
-            option,
+            option.upper(),
         )

@@ -30,11 +30,11 @@ class Test_プロダクトコードのimport部分を扱うImportPartクラス:
             cases = [
                 (
                     ParsedData("X", "List[Tuple[int, int]]"),
-                    "from sys import stdin\nfrom typing import List, Tuple",
+                    "from typing import List, Tuple",
                 ),
                 (
                     ParsedData("Y", "List[Tuple[str, str]]"),
-                    "from sys import stdin\nfrom typing import List, Tuple",
+                    "from typing import List, Tuple",
                 ),
             ]
 

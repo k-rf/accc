@@ -134,7 +134,7 @@ class Test_文字列を解析するProductCodeServiceクラス:
                     {"args": "X", "type": "List[Tuple[int, int]]", "option": "M"},
                 ),
                 (
-                    "x: List[int, int, int];K",
+                    "x: List[int, int, int];k",
                     {"args": "X", "type": "List[Tuple[int, int, int]]", "option": "K"},
                 ),
             ]
