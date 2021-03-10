@@ -96,16 +96,16 @@ class Test_プロダクトコードの入力部分を扱うInputPartクラス:
         class Test_タプル型リストの入力形式に変換する:
             cases = [
                 (
-                    ParsedData("X", "List[Tuple[int, int]]"),
+                    ParsedData("X", "List[Tuple[int, int]]", "N"),
                     "X = []\n    "
-                    "for line in stdin:\n    "
-                    "    X.append(tuple([int(x) for x in line.split()]))",
+                    "for _ in range(N):\n    "
+                    "    X.append(tuple([int(x) for x in input().split()]))",
                 ),
                 (
-                    ParsedData("Y", "List[Tuple[str, str]]"),
+                    ParsedData("Y", "List[Tuple[str, str]]", "M"),
                     "Y = []\n    "
-                    "for line in stdin:\n    "
-                    "    Y.append(tuple([x for x in line.split()]))",
+                    "for _ in range(M):\n    "
+                    "    Y.append(tuple([x for x in input().split()]))",
                 ),
             ]
 

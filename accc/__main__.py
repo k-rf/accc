@@ -64,7 +64,13 @@ def check_file_existence(s: str):
 def command_gateway(file_name: str):
     product_file, test_file = check_file_existence(file_name)
 
-    print("For product")
+    print("------------------------")
+    print("  N: int")
+    print("  A: int, B: int")
+    print("  L: List[int]")
+    print("  X: List[int, int]; N")
+    print("------------------------")
+    print("Please input data for product code.")
 
     product_raw_data: List[str] = []
     prompt = ">>> \n"
@@ -72,7 +78,7 @@ def command_gateway(file_name: str):
         product_raw_data.append(s)
         prompt = ""
 
-    print("For test")
+    print("Please input data for test code.")
 
     test_raw_data: List[Tuple[List[str], str]] = []
     loop = True
@@ -89,8 +95,6 @@ def command_gateway(file_name: str):
         if loop:
             expected = input("Expected Value: ")
             test_raw_data.append((row, expected))
-
-    print(test_raw_data)
 
     try:
         injector.get(ProductCodeController).create_product_code(

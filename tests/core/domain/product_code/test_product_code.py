@@ -17,7 +17,7 @@ class Test_プロダクトコードを扱うProductCodeクラス:
                 "N: int",
                 "A: int, B: int",
                 "X: List[int]",
-                "Y: List[A: int, B: int, C: int]]",
+                "Y: List[int, int, int]; N",
             ]
         )
         ProductCode(FileName("a"), parsed_data)

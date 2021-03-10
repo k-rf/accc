@@ -20,7 +20,7 @@ class ImportPart:
         is_tuple = "Tuple" in value.type
 
         if is_list and is_tuple:
-            return "from sys import stdin\nfrom typing import List, Tuple"
+            return "from typing import List, Tuple"
         if is_list:
             return "from typing import List"
 

@@ -24,8 +24,8 @@ class InputPart:
             return "\n    ".join(
                 [
                     f"{value.args} = []",
-                    f"for line in stdin:",
-                    f"    {value.args}.append(tuple([int(x) for x in line.split()]))",
+                    f"for _ in range({value.option}):",
+                    f"    {value.args}.append(tuple([int(x) for x in input().split()]))",
                 ]
             )
 
@@ -33,8 +33,8 @@ class InputPart:
             return "\n    ".join(
                 [
                     f"{value.args} = []",
-                    f"for line in stdin:",
-                    f"    {value.args}.append(tuple([x for x in line.split()]))",
+                    f"for _ in range({value.option}):",
+                    f"    {value.args}.append(tuple([x for x in input().split()]))",
                 ]
             )
 
