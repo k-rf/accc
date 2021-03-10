@@ -7,6 +7,7 @@ class ProductCodeService:
     @overload
     def parse(self, value: str) -> ParsedData:
         ...
+
     @overload
     def parse(self, value: List[str]) -> List[ParsedData]:
         ...
@@ -90,12 +91,16 @@ class ProductCodeService:
         return ParsedData(_args.upper(), "".join(_type.split(" ")).capitalize())
 
     def __tuple_list_type_parse(self, value: str):
-        _args, _type = self.__divide_into_arg_and_type(value)
+        args_and_type, option = [x.strip() for x in value.split(";")]
+        _args, _type = self.__divide_into_arg_and_type(args_and_type)
 
         if self.__has_no_bracket(_type):
             raise ValueError(f"`{value}` has no bracket.")
 
         inner_type = self.__expose_inner_type(_type)
-        tuple_type = self.__tuple_type_parse(inner_type).type
 
-        return ParsedData(_args, f"List[{tuple_type}]")
+        return ParsedData(
+            _args.upper(),
+            f"List[Tuple[{', '.join([x.strip() for x in inner_type.split(',')])}]]",
+            option,
+        )

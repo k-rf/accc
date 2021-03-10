@@ -1,11 +1,11 @@
 from dataclasses import asdict
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 
 import pytest
 from accc.core.domain.product_code.product_code_service import ProductCodeService
 
 
-def ids(value: List[Tuple[str, dict[str, str]]]):
+def ids(value: List[Tuple[str, Dict[str, str]]]):
     return (f"{x[0]} >> {x[1]}" for x in value)
 
 
@@ -22,11 +22,11 @@ class Test_文字列を解析するProductCodeServiceクラス:
     class Test_parseメソッドは文字列を解析してParsedData型に変換する:
         class Test_数値型を解析する:
             cases = [
-                ("X: int", {"args": "X", "type": "int"}),
-                ("X:int", {"args": "X", "type": "int"}),
-                ("X :int", {"args": "X", "type": "int"}),
-                ("X : int", {"args": "X", "type": "int"}),
-                ("x: int", {"args": "X", "type": "int"}),
+                ("X: int", {"args": "X", "type": "int", "option": None}),
+                ("X:int", {"args": "X", "type": "int", "option": None}),
+                ("X :int", {"args": "X", "type": "int", "option": None}),
+                ("X : int", {"args": "X", "type": "int", "option": None}),
+                ("x: int", {"args": "X", "type": "int", "option": None}),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
@@ -35,15 +35,30 @@ class Test_文字列を解析するProductCodeServiceクラス:
 
         class Test_数値型タプルを解析する:
             cases = [
-                ("X: int, Y: int", {"args": "X, Y", "type": "Tuple[int, int]"}),
-                ("X : int , Y:int", {"args": "X, Y", "type": "Tuple[int, int]"}),
-                ("X :int ,Y :int", {"args": "X, Y", "type": "Tuple[int, int]"}),
-                ("X:int,Y : int", {"args": "X, Y", "type": "Tuple[int, int]"}),
-                ("x: int, y: int", {"args": "X, Y", "type": "Tuple[int, int]"}),
-                ("X: int,", {"args": "X", "type": "Tuple[int]"}),
+                (
+                    "X: int, Y: int",
+                    {"args": "X, Y", "type": "Tuple[int, int]", "option": None},
+                ),
+                (
+                    "X : int , Y:int",
+                    {"args": "X, Y", "type": "Tuple[int, int]", "option": None},
+                ),
+                (
+                    "X :int ,Y :int",
+                    {"args": "X, Y", "type": "Tuple[int, int]", "option": None},
+                ),
+                (
+                    "X:int,Y : int",
+                    {"args": "X, Y", "type": "Tuple[int, int]", "option": None},
+                ),
+                (
+                    "x: int, y: int",
+                    {"args": "X, Y", "type": "Tuple[int, int]", "option": None},
+                ),
+                ("X: int,", {"args": "X", "type": "Tuple[int]", "option": None}),
                 (
                     "X: int, Y: int, Z: int",
-                    {"args": "X, Y, Z", "type": "Tuple[int, int, int]"},
+                    {"args": "X, Y, Z", "type": "Tuple[int, int, int]", "option": None},
                 ),
             ]
 
@@ -53,11 +68,14 @@ class Test_文字列を解析するProductCodeServiceクラス:
 
         class Test_数値型リストを解析する:
             cases = [
-                ("X: List[int]", {"args": "X", "type": "List[int]"}),
-                ("x: List[ int ]", {"args": "X", "type": "List[int]"}),
-                ("X: List [int]", {"args": "X", "type": "List[int]"}),
-                ("X: List [  int ]", {"args": "X", "type": "List[int]"}),
-                ("X: List[int]", {"args": "X", "type": "List[int]"}),
+                ("X: List[int]", {"args": "X", "type": "List[int]", "option": None}),
+                ("x: List[ int ]", {"args": "X", "type": "List[int]", "option": None}),
+                ("X: List [int]", {"args": "X", "type": "List[int]", "option": None}),
+                (
+                    "X: List [  int ]",
+                    {"args": "X", "type": "List[int]", "option": None},
+                ),
+                ("X: List[int]", {"args": "X", "type": "List[int]", "option": None}),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
@@ -66,8 +84,8 @@ class Test_文字列を解析するProductCodeServiceクラス:
 
         class Test_文字列型を解析する:
             cases = [
-                ("X: str", {"args": "X", "type": "str"}),
-                ("x: str", {"args": "X", "type": "str"}),
+                ("X: str", {"args": "X", "type": "str", "option": None}),
+                ("x: str", {"args": "X", "type": "str", "option": None}),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
@@ -76,12 +94,18 @@ class Test_文字列を解析するProductCodeServiceクラス:
 
         class Test_文字列型タプルを解析する:
             cases = [
-                ("X: str, Y: str", {"args": "X, Y", "type": "Tuple[str, str]"}),
-                ("x: str, y: str", {"args": "X, Y", "type": "Tuple[str, str]"}),
-                ("X: str,", {"args": "X", "type": "Tuple[str]"}),
+                (
+                    "X: str, Y: str",
+                    {"args": "X, Y", "type": "Tuple[str, str]", "option": None},
+                ),
+                (
+                    "x: str, y: str",
+                    {"args": "X, Y", "type": "Tuple[str, str]", "option": None},
+                ),
+                ("X: str,", {"args": "X", "type": "Tuple[str]", "option": None}),
                 (
                     "X: str, Y: str, Z: str",
-                    {"args": "X, Y, Z", "type": "Tuple[str, str, str]"},
+                    {"args": "X, Y, Z", "type": "Tuple[str, str, str]", "option": None},
                 ),
             ]
 
@@ -91,8 +115,8 @@ class Test_文字列を解析するProductCodeServiceクラス:
 
         class Test_文字列型リストを解析する:
             cases = [
-                ("X: List[str]", {"args": "X", "type": "List[str]"}),
-                ("X: List[str]", {"args": "X", "type": "List[str]"}),
+                ("X: List[str]", {"args": "X", "type": "List[str]", "option": None}),
+                ("X: List[str]", {"args": "X", "type": "List[str]", "option": None}),
             ]
 
             @pytest.mark.parametrize(("args", "expected"), cases, ids=ids(cases))
@@ -102,20 +126,16 @@ class Test_文字列を解析するProductCodeServiceクラス:
         class Test_タプル型リストを解析する:
             cases = [
                 (
-                    "X: List[A: int, B: int]",
-                    {"args": "X", "type": "List[Tuple[int, int]]"},
+                    "X: List[int, int]; N",
+                    {"args": "X", "type": "List[Tuple[int, int]]", "option": "N"},
                 ),
                 (
-                    "X: List [ A : int , B : int ]",
-                    {"args": "X", "type": "List[Tuple[int, int]]"},
+                    "X: List [ int ,  int ] ;  M",
+                    {"args": "X", "type": "List[Tuple[int, int]]", "option": "M"},
                 ),
                 (
-                    "X: List[a: int, b: int]]",
-                    {"args": "X", "type": "List[Tuple[int, int]]"},
-                ),
-                (
-                    "X: List[a: int, b: int, c: int]]",
-                    {"args": "X", "type": "List[Tuple[int, int, int]]"},
+                    "x: List[int, int, int];K",
+                    {"args": "X", "type": "List[Tuple[int, int, int]]", "option": "K"},
                 ),
             ]
 
